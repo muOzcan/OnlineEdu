@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineEdu.DataAccess.Context;
 
@@ -11,9 +12,11 @@ using OnlineEdu.DataAccess.Context;
 namespace OnlineEdu.DataAccess.Migrations
 {
     [DbContext(typeof(OnlineEduContext))]
-    partial class OnlineEduContextModelSnapshot : ModelSnapshot
+    [Migration("20250504193958_ChangeCategoryIdMig")]
+    partial class ChangeCategoryIdMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,7 +174,7 @@ namespace OnlineEdu.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"));
 
-                    b.Property<int>("CourseCategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("CourseName")
@@ -190,7 +193,7 @@ namespace OnlineEdu.DataAccess.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.HasIndex("CourseCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Courses");
                 });
@@ -344,7 +347,7 @@ namespace OnlineEdu.DataAccess.Migrations
                 {
                     b.HasOne("OnlineEdu.Entity.Entities.CourseCategory", "Category")
                         .WithMany("Courses")
-                        .HasForeignKey("CourseCategoryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
